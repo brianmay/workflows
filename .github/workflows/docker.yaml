@@ -13,6 +13,7 @@ jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner != 'brianmay' || github.event_name != 'pull_request' }}
 
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}

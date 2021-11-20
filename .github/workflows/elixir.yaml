@@ -17,6 +17,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner != 'brianmay' || github.event_name != 'pull_request' }}
 
     # Service containers to run with `container-job`
     services:
@@ -95,6 +96,7 @@ jobs:
 
   dialyzer:
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner != 'brianmay' || github.event_name != 'pull_request' }}
 
     strategy:
       matrix:
