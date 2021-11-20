@@ -23,7 +23,6 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@548e2346a9987b56d8a4104fe776321ff8e23440
-        if: ${{env.DOCKERHUB_USERNAME != 0}}
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
