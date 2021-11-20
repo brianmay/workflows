@@ -10,8 +10,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  push:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner != 'brianmay' || github.event_name != 'pull_request' }}
 
