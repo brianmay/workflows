@@ -33,7 +33,7 @@ jobs:
             type=ref,event=tag
             type=ref,event=pr
             type=sha, format=long
-      - name: Docker meta
+      - name: BrianMay meta
         id: brianmay_meta
         uses: brianmay/docker-meta@main
       - name: Set up QEMU
