@@ -123,6 +123,7 @@ jobs:
         otp: [24.0.4]
 
     env:
+      MIX_ENV: test
       BUILD_WITHOUT_QUIC: true
 
     steps:
