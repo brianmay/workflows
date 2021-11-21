@@ -13,6 +13,16 @@ on:
           required: false
           type: string
           default: ""
+        build_npm_assets:
+          description: "Build npm assets"
+          required: false
+          type: boolean
+          default: true
+        directory:
+          description: "Project directory"
+          required: false
+          type: string
+          default: "."
 
 jobs:
   test:
@@ -67,32 +77,39 @@ jobs:
           path: deps
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
       - name: Install Mix Dependencies
-        if: steps.mix-cache.outputs.cache-hit != 'true'
+        working-directory: ${{ inputs.directory }}
+        if: ${{ steps.mix-cache.outputs.cache-hit != 'true' }}
         run: |
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
       - name: Build
+        working-directory: ${{ inputs.directory }}
         run: |
           mix compile
-      - name: Install assets
+      - name: Build NPM assets
+        if: ${{ inputs.build_npm_assets }}
+        working-directory: ${{ inputs.directory }}
         run: |
           npm install --prefix assets
-      - name: Build assets
-        run: |
           npm run deploy --prefix assets
       - name: Check Formatting
+        working-directory: ${{ inputs.directory }}
         run: mix format --check-formatted
       - name: Check Prettier
+        working-directory: ${{ inputs.directory }}
         run: mix prettier
       - name: Run Credo
+        working-directory: ${{ inputs.directory }}
         run: mix credo --strict
       - name: Download and extract test data
+        working-directory: ${{ inputs.directory }}
         if: ${{ inputs.test_data }}
         run: |
           wget ${{ inputs.test_data }} -O test_data.tar
           tar -xvf test_data.tar
       - name: Run Tests
+        working-directory: ${{ inputs.directory }}
         run: mix test
 
   dialyzer:
@@ -120,25 +137,29 @@ jobs:
         with:
           path: deps
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
-      - name: Install Mix Dependencies
-        if: steps.mix-cache.outputs.cache-hit != 'true'
-        run: |
-          mix local.rebar --force
-          mix local.hex --force
-          mix deps.get
       - name: Retrieve PLT Cache
         uses: actions/cache@v2.1.6
         id: plt-cache
         with:
           path: priv/plts
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-plts-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}-3
+      - name: Install Mix Dependencies
+        working-directory: ${{ inputs.directory }}
+        if: ${{ steps.mix-cache.outputs.cache-hit != 'true' }}
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
       - name: Build
+        working-directory: ${{ inputs.directory }}
         run: |
           mix compile
       - name: Create PLTs
-        if: steps.plt-cache.outputs.cache-hit != 'true'
+        working-directory: ${{ inputs.directory }}
+        if: ${{ steps.plt-cache.outputs.cache-hit != 'true' }}
         run: |
           mkdir -p priv/plts
           mix dialyzer --plt
       - name: Run dialyzer
+        working-directory: ${{ inputs.directory }}
         run: mix dialyzer --no-check
