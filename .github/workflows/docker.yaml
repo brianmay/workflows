@@ -60,3 +60,8 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
           cache-to: type=inline
           build-args: ${{ steps.brianmay_meta.outputs.build-args }}
+      - name: Notify update
+        if: ${{ github.repository_owner == 'brianmay' && github.ref_name == 'main' && github.event_name != 'pull_request' }}
+        run: |
+          curl -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://home.linuxpenguins.xyz/v1/webhooks/native
+          curl -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://cloud.linuxpenguins.xyz/v1/webhooks/native
