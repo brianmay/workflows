@@ -1,7 +1,10 @@
 name: Build and Deploy to Docker Hub
 
 on:
-  workflow_call: {}
+  workflow_call:
+    secrets:
+      DEPLOY_USER:
+        required: true
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -63,5 +66,5 @@ jobs:
       - name: Notify update
         if: ${{ github.repository_owner == 'brianmay' && github.ref_name == 'main' && github.event_name != 'pull_request' }}
         run: |
-          curl -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://home.linuxpenguins.xyz/v1/webhooks/native
-          curl -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://cloud.linuxpenguins.xyz/v1/webhooks/native
+          curl --user "${{ secrets.DEPLOY_USER }}" -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://home.linuxpenguins.xyz/v1/webhooks/native
+          curl --user "${{ secrets.DEPLOY_USER }}" -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://cloud.linuxpenguins.xyz/v1/webhooks/native
