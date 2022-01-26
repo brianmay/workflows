@@ -17,9 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.repository_owner != 'brianmay' || github.event_name == 'push' }}
 
-    env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-
     steps:
       - name: Dump GitHub context
         env:
