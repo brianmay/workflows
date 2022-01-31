@@ -104,10 +104,6 @@ jobs:
       - name: Check Formatting
         working-directory: ${{ inputs.directory }}
         run: mix format --check-formatted
-      - name: Check Prettier
-        if: ${{ inputs.build_npm_assets }}
-        working-directory: ${{ inputs.directory }}
-        run: mix prettier
       - name: Run Credo
         working-directory: ${{ inputs.directory }}
         run: mix credo --strict
