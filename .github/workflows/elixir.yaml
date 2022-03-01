@@ -67,7 +67,7 @@ jobs:
       BUILD_WITHOUT_QUIC: true
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - name: Install system dependancies
         if: ${{ inputs.apt_packages }}
         run: |
@@ -131,7 +131,7 @@ jobs:
       BUILD_WITHOUT_QUIC: true
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - name: Setup elixir
         uses: erlef/setup-elixir@v1.11
         with:
