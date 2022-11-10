@@ -67,5 +67,4 @@ jobs:
       - name: Notify update
         if: ${{ github.repository_owner == 'brianmay' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')) && github.event_name == 'push' }}
         run: |
-          curl --user "${{ secrets.DEPLOY_USER }}" -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://home.linuxpenguins.xyz/v1/webhooks/native
           curl --user "${{ secrets.DEPLOY_USER }}" -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://cloud.linuxpenguins.xyz/v1/webhooks/native
