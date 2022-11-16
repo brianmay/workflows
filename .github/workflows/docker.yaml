@@ -5,17 +5,17 @@ on:
     secrets:
       DEPLOY_USER:
         required: true
-      inputs:
-        deploy_iot:
-          description: "Should we try to deploy to iot env?"
-          required: false
-          type: false
-          default: false
-        deploy_servers:
-          description: "Should we try to deploy to servers env?"
-          required: false
-          type: false
-          default: false
+    inputs:
+      deploy_iot:
+        description: "Should we try to deploy to iot env?"
+        required: false
+        type: false
+        default: false
+      deploy_servers:
+        description: "Should we try to deploy to servers env?"
+        required: false
+        type: false
+        default: false
 
 
 env:

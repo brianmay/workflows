@@ -2,35 +2,35 @@ name: Build and Deploy to Docker Hub
 
 on:
   workflow_call:
-      inputs:
-        apt_packages:
-          description: "Extra apt packages to install"
-          required: false
-          type: string
-          default: ""
-        test_data:
-          description: "Test data to install"
-          required: false
-          type: string
-          default: ""
-        build_npm_assets:
-          description: "Build npm assets"
-          required: false
-          type: boolean
-          default: true
-        directory:
-          description: "Project directory"
-          required: false
-          type: string
-          default: "."
-        mix_cache_postfix:
-          required: false
-          type: string
-          default: ""
-        plts_cache_postfix:
-          required: false
-          type: string
-          default: ""
+    inputs:
+      apt_packages:
+        description: "Extra apt packages to install"
+        required: false
+        type: string
+        default: ""
+      test_data:
+        description: "Test data to install"
+        required: false
+        type: string
+        default: ""
+      build_npm_assets:
+        description: "Build npm assets"
+        required: false
+        type: boolean
+        default: true
+      directory:
+        description: "Project directory"
+        required: false
+        type: string
+        default: "."
+      mix_cache_postfix:
+        required: false
+        type: string
+        default: ""
+      plts_cache_postfix:
+        required: false
+        type: string
+        default: ""
 
 jobs:
   test:
