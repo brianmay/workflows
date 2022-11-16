@@ -11,7 +11,7 @@ on:
           required: false
           type: false
           default: false
-        deploy_iot:
+        deploy_servers:
           description: "Should we try to deploy to servers env?"
           required: false
           type: false
