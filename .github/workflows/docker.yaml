@@ -5,6 +5,18 @@ on:
     secrets:
       DEPLOY_USER:
         required: true
+      inputs:
+        deploy_iot:
+          description: "Should we try to deploy to iot env?"
+          required: false
+          type: false
+          default: false
+        deploy_iot:
+          description: "Should we try to deploy to servers env?"
+          required: false
+          type: false
+          default: false
+
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -64,7 +76,15 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
           cache-to: type=inline
           build-args: ${{ steps.brianmay_meta.outputs.build-args }}
-      - name: Notify update
+      - name: Notify keel update
         if: ${{ github.repository_owner == 'brianmay' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')) && github.event_name == 'push' }}
         run: |
           curl --user "${{ secrets.DEPLOY_USER }}" -d '{"name": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}", "tag": "main"}'  https://cloud.linuxpenguins.xyz/v1/webhooks/native
+      - name: Notify IOT update
+        if: ${{ inputs.deploy_iot && github.repository_owner == 'brianmay' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')) && github.event_name == 'push' }}
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.DEPLOY_USER }}" https://wt-iot.linuxpenguins.xyz/v1/update
+      - name: Notify servers update
+        if: ${{ inputs.deploy_servers && github.repository_owner == 'brianmay' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')) && github.event_name == 'push' }}
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.DEPLOY_USER }}" https://wt-servers.linuxpenguins.xyz/v1/update
