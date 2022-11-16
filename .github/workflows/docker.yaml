@@ -9,12 +9,12 @@ on:
       deploy_iot:
         description: "Should we try to deploy to iot env?"
         required: false
-        type: false
+        type: boolean
         default: false
       deploy_servers:
         description: "Should we try to deploy to servers env?"
         required: false
-        type: false
+        type: boolean
         default: false
 
 
