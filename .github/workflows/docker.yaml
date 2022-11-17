@@ -5,6 +5,8 @@ on:
     secrets:
       DEPLOY_USER:
         required: true
+      DEPLOY_SECRET:
+        required: true
     inputs:
       deploy_iot:
         description: "Should we try to deploy to iot env?"
@@ -83,8 +85,8 @@ jobs:
       - name: Notify IOT update
         if: ${{ inputs.deploy_iot && github.repository_owner == 'brianmay' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')) && github.event_name == 'push' }}
         run: |
-          curl -H "Authorization: Bearer ${{ secrets.DEPLOY_USER }}" https://wt-iot.linuxpenguins.xyz/v1/update
+          curl -H "Authorization: Bearer ${{ secrets.DEPLOY_SECRET }}" https://wt-iot.linuxpenguins.xyz/v1/update
       - name: Notify servers update
         if: ${{ inputs.deploy_servers && github.repository_owner == 'brianmay' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags')) && github.event_name == 'push' }}
         run: |
-          curl -H "Authorization: Bearer ${{ secrets.DEPLOY_USER }}" https://wt-servers.linuxpenguins.xyz/v1/update
+          curl -H "Authorization: Bearer ${{ secrets.DEPLOY_SECRET }}" https://wt-servers.linuxpenguins.xyz/v1/update
