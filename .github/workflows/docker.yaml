@@ -38,7 +38,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@818d4b7b91585d195f67373fd9cb0332e31a7175
