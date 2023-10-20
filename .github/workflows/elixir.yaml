@@ -65,7 +65,6 @@ jobs:
       DATABASE_URL_TEST: postgresql://postgres:postgres@localhost/test?sslmode=disable
       MIX_ENV: test
       BUILD_WITHOUT_QUIC: true
-      TOP_SRC: $(PWD)
 
     steps:
       - uses: actions/checkout@v4
@@ -130,7 +129,6 @@ jobs:
     env:
       MIX_ENV: test
       BUILD_WITHOUT_QUIC: true
-      TOP_SRC: $(PWD)
 
     steps:
       - uses: actions/checkout@v4
