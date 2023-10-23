@@ -2,18 +2,8 @@ name: Build and Deploy to Docker Hub
 
 on:
   workflow_call:
-    secrets:
-    inputs:
-      deploy_iot:
-        description: "Should we try to deploy to iot env?"
-        required: false
-        type: boolean
-        default: false
-      deploy_servers:
-        description: "Should we try to deploy to servers env?"
-        required: false
-        type: boolean
-        default: false
+    secrets: {}
+    inputs: {}
 
 
 env:
