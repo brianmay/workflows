@@ -13,6 +13,11 @@ on:
         required: false
         type: string
         default: ""
+      test_sha256:
+        description: "SHA256 Hash of test data to install"
+        required: false
+        type: string
+        default: "invalid"
       build_npm_assets:
         description: "Build npm assets"
         required: false
@@ -112,6 +117,7 @@ jobs:
         if: ${{ inputs.test_data }}
         run: |
           wget ${{ inputs.test_data }} -O test_data.tar
+          echo "${{ inputs.test_sha256}} test_data.tar" | sha256sum --check
           tar -xvf test_data.tar
       - name: Run Tests
         working-directory: ${{ inputs.directory }}
