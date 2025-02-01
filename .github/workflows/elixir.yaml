@@ -63,8 +63,8 @@ jobs:
 
     strategy:
       matrix:
-        elixir: [1.16.3]
-        otp: [25.1]
+        elixir: [1.17.3]
+        otp: [26.2]
 
     env:
       DATABASE_URL_TEST: postgresql://postgres:postgres@localhost/test?sslmode=disable
@@ -129,8 +129,8 @@ jobs:
 
     strategy:
       matrix:
-        elixir: [1.16.3]
-        otp: [25.1]
+        elixir: [1.17.3]
+        otp: [26.2]
 
     env:
       MIX_ENV: test
