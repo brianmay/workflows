@@ -79,7 +79,7 @@ jobs:
           sudo apt-get update --yes
           sudo apt-get install --yes ${{ inputs.apt_packages }}
       - name: Setup elixir
-        uses: erlef/setup-elixir@v1.18
+        uses: erlef/setup-elixir@v1.19
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
@@ -139,7 +139,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup elixir
-        uses: erlef/setup-elixir@v1.18
+        uses: erlef/setup-elixir@v1.19
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
