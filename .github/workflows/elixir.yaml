@@ -84,7 +84,7 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
       - name: Retrieve Mix Dependencies Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: mix-cache # id to use in retrieve action
         with:
           path: ${{ inputs.directory }}/deps
@@ -144,13 +144,13 @@ jobs:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
       - name: Retrieve Mix Dependencies Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: mix-cache # id to use in retrieve action
         with:
           path: ${{ inputs.directory }}/deps
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ inputs.directory }}-mix-${{ hashFiles(format('{0}{1}', inputs.directory, '/mix.lock')) }}${{ inputs.mix_cache_postfix }}
       - name: Retrieve PLT Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: plt-cache
         with:
           path: ${{ inputs.directory }}/priv/plts
